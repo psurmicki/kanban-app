@@ -1,1 +1,9 @@
-/* Kanban styles */
+.AddLane {
+  margin: 0 0 20px;
+  padding: 7px;
+  width: 248px;
+}
+
+.lanes {
+  color: rgb(0,0,0);
+}
