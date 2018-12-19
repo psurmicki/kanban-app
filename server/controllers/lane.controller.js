@@ -5,13 +5,17 @@ export function addLane(req, res) {
   if (!req.body.name) {
     res.status(403).end();
   }
+
   const newLane = new Lane(req.body);
+
   newLane.notes = [];
   newLane.id = uuid();
+
   newLane.save((err, saved) => {
     if (err) {
       res.status(500).send(err);
     }
+
     res.json(saved);
   });
 }
@@ -30,6 +34,7 @@ export function deleteLane(req, res) {
     if (err) {
       res.status(500).send(err);
     }
+
     lane.remove(() => {
       res.status(200).end();
     });
@@ -37,13 +42,14 @@ export function deleteLane(req, res) {
 }
 
 export function editLane(req, res) {
-  Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
+  if (!req.body.name) {
+    res.status(400).end();
+  }
+
+  Lane.findOneAndUpdate({ id: req.params.laneId }, { name: req.body.name }).exec(err => {
     if (err) {
       res.status(500).send(err);
     }
-    lane.set({ name: req.body.name });
-    lane.save(() => {
-      res.status(200).end();
-    });
+    res.status(200).end();
   });
 }

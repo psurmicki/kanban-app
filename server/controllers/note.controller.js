@@ -30,24 +30,33 @@ export function addNote(req, res) {
 }
 
 export function deleteNote(req, res) {
-  Note.findOne({ id: req.params.noteId }).exec((err, note) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    note.remove(() => {
-      res.status(200).end();
-    });
+  if (!req.body.laneId) {
+    res.status(400).end();
+  }
+
+  console.log('request', req);  
+  Note.findOneAndRemove({ id: req.params.noteId })
+  .then(() => {
+    Lane.findOne({ id: req.body.laneId })
+  })
+  .then(lane => {
+    console.log('lane notes', lane.notes);
+    lane.update({ notes: lane.notes.filter(note => note.id !== req.params.noteId) }).exec();
+    // lane.update({ $pull: { notes: { id: req.params.noteId } }}).exec(); // CastError: Cast to ObjectId failed for value "8fcd4827-d3c6-426e-81f6-28e5606e06d4" at path "notes"
   });
+
+  res.status(200).end();
 }
 
 export function editNote(req, res) {
-  Note.findOne({ id: req.params.noteId }).exec((err, note) => {
+  if (!req.body.task) {
+    res.status(400).end();
+  }
+
+  Note.findOneAndUpdate({ id: req.params.noteId }, { task: req.body.task }).exec((err, note) => {
     if (err) {
       res.status(500).send(err);
     }
-    note.set({ task: req.body.task });
-    note.save(() => {
-      res.status(200).end();
-    });
+    res.json(note);
   });
 }

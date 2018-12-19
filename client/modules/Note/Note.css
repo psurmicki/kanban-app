@@ -22,7 +22,7 @@
 
 .notes li button:hover {
   cursor: pointer;
-  color: red;
+  color: rgb(255, 0, 0);
 }
 
 .notes input {

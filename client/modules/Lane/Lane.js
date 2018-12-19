@@ -1,14 +1,19 @@
-import React, { PropTypes } from 'react';
-import NotesContainer from '../Note/NoteContainer';
+import React from 'react';
+import PropTypes from 'prop-types';
+import NotesContainer from '../Note/NotesContainer';
 import Edit from '../../components/Edit';
+import { DragSource } from 'react-dnd';
 
+// Import Style
 import styles from './Lane.css';
 
-const Lane = (props) => {
-  const { connectDropTarget, lane, laneNotes, updateLane, addNote, deleteLane, editLane } = props;
+const Lane = props => {
+  const { connectDragSource, connectDropTarget, editing, lane, laneNotes, updateLane, editLane, addNote, deleteLane } = props;
   const laneId = lane.id;
 
-  return connectDropTarget(
+  const dragSource = editing ? a => a : connectDragSource;
+
+  return dragSource(connectDropTarget(
     <div className={styles.Lane}>
       <div className={styles.LaneHeader}>
         <div className={styles.LaneAddNote}>
@@ -31,7 +36,7 @@ const Lane = (props) => {
         laneId={laneId}
       />
     </div>
-  );
+  ));
 };
 
 Lane.propTypes = {
@@ -40,7 +45,9 @@ Lane.propTypes = {
   addNote: PropTypes.func,
   updateLane: PropTypes.func,
   deleteLane: PropTypes.func,
-  editLane: PropTypes.func,
+  connectDropTarget: PropTypes.func,
+  connectDragSource: PropTypes.func,
+  editing: PropTypes.func,
 };
 
-export default (Lane);
+export default Lane;

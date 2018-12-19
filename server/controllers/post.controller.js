@@ -46,7 +46,7 @@ export function addPost(req, res) {
   });
 }
 
-/**
+ // /**
  * Get a single post
  * @param req
  * @param res
@@ -61,7 +61,7 @@ export function getPost(req, res) {
   });
 }
 
-/**
+// /**
  * Delete a post
  * @param req
  * @param res

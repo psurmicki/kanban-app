@@ -1,0 +1,23 @@
+/* dummy styles */
+
+.value {
+    padding: 10px;
+}
+
+input {
+    border: none;
+    padding: 10px;
+}
+
+.delete {
+    background-color: rgb(220, 20, 60);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+li {
+    padding: 10px;
+}

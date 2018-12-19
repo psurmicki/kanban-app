@@ -1,1 +1,43 @@
 /* Lane styles */
+
+button {
+  padding: 10px;
+}
+
+.lanes {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.Lane {
+  border-radius: 5px;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  min-width: 30%;
+  margin: 10px;
+}
+
+.LaneHeader {
+  font-size: 20px;
+}
+
+.LaneAddNote button, .AddLane {
+  background-color: green;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.LaneDelete button {
+  background-color: crimson;
+  color: #fff;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
